@@ -13,24 +13,36 @@ use App\Patterns\Behavioral\ChainOfResponsibility\Order\User;
 use App\Patterns\Behavioral\ChainOfResponsibility\Order\Product;
 use App\Patterns\Behavioral\ChainOfResponsibility\Order\Order;
 
-$user = new User("USR-103", "Mohammed Abdoh");
-$product = new Product("PRD-1", "Lenovo laptop");
-$order = new Order($user, $product, new DateTime("2020-07-05"));
+use App\Patterns\Creational\FactoryMethod\DialogExample\Dialogs\SystemDialog;
+use App\Patterns\Creational\FactoryMethod\DialogExample\Dialogs\WebDialog;
+use App\Patterns\Creational\FactoryMethod\DialogExample\Dialogs\MobileDialog;
 
-$loyaltyHandler = new LoyaltyHandler();
-$loyaltyHandler
-    ->setNextHandler(new ProductAvailabilityHandler())
-    ->setNextHandler(new ShipmentHandler())
-    ->setNextHandler(new OrderHandler());
+$systemDialog = new SystemDialog();
+$mobileDialog = new MobileDialog();
+$webDialog = new WebDialog();
 
-try {
-    $loyaltyHandler->handle($order);
-} catch (NoLoyalUserException $e) {
-    echo $e->getMessage() . "\n";
-} catch (NoProductAvailableException $e) {
-    echo $e->getMessage() . "\n";
-} catch (NoShipmentAvailableException $e) {
-    echo $e->getMessage() . "\n";
-} catch (Exception $e) {
+var_dump($systemDialog->renderDialog());
+var_dump($mobileDialog->renderDialog());
+var_dump($webDialog->renderDialog());
 
-}
+// $user = new User("USR-103", "Mohammed Abdoh");
+// $product = new Product("PRD-1", "Lenovo laptop");
+// $order = new Order($user, $product, new DateTime("2020-07-05"));
+
+// $loyaltyHandler = new LoyaltyHandler();
+// $loyaltyHandler
+//     ->setNextHandler(new ProductAvailabilityHandler())
+//     ->setNextHandler(new ShipmentHandler())
+//     ->setNextHandler(new OrderHandler());
+
+// try {
+//     $loyaltyHandler->handle($order);
+// } catch (NoLoyalUserException $e) {
+//     echo $e->getMessage() . "\n";
+// } catch (NoProductAvailableException $e) {
+//     echo $e->getMessage() . "\n";
+// } catch (NoShipmentAvailableException $e) {
+//     echo $e->getMessage() . "\n";
+// } catch (Exception $e) {
+
+// }
